@@ -16,7 +16,7 @@ const userSchema = new Schema(
             type: String,
             required: true,
             unique: true,
-            lowecase: true,
+            lowercase: true,
             trim: true, 
         },
         fullName: {
@@ -65,6 +65,7 @@ userSchema.methods.isPasswordCorrect = async function(password){
 }
 
 
+//this is short lived
 userSchema.methods.generateAccessToken = function(){
     return jwt.sign(
         {
@@ -80,7 +81,14 @@ userSchema.methods.generateAccessToken = function(){
     )
 }
 
+/*jwt.sign(
+  payload,
+  SECRET_KEY,
+  { expiresIn: "15m" }
+)*/
 
+
+//this is long lived
 userSchema.methods.generateRefreshToken = function(){
     return jwt.sign(
         {
@@ -96,3 +104,21 @@ userSchema.methods.generateRefreshToken = function(){
 export const User = mongoose.model("User", userSchema)
 
 //jwt is a bearer token
+
+/*
+User logs in
+
+Server sends:
+
+Access token
+
+Refresh token
+
+Access token expires
+
+Client sends refresh token
+
+Server verifies refresh token
+
+New access token issued
+*/
