@@ -12,3 +12,5 @@ class ApiResponse{
         above this error   */
     }
 }
+
+export {ApiResponse}
