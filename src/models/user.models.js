@@ -53,9 +53,9 @@ const userSchema = new Schema(
 )
 
 //dont write callback in arrow function as inside that this ka reference nahi hota
-//middleware hain toh next hona hi chahiye
+//middleware hain toh next hona hi chahiye but async middleware dont have next
 userSchema.pre("save", async function(next){
-    if(!this.isModified("password")) return next();
+    if(!this.isModified("password")) return;
      this.password  = await bcrypt.hash(this.password, 10)
 })
 
